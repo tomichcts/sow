@@ -1,4 +1,4 @@
-<?php 
+<?php
 include("../00_assets/config.php");
 ?>
  <?php
@@ -17,10 +17,10 @@ $sql="SELECT
 	, `02_edificios_user`.`construyendo`
 FROM
     `cts_schoolwars`.`02_edificios`
-    LEFT JOIN `cts_schoolwars`.`02_edificios_user` 
+    LEFT JOIN `cts_schoolwars`.`02_edificios_user`
         ON (`02_edificios`.`id` = `02_edificios_user`.`id_edificio`)
 		WHERE 02_edificios.id= $id;";
-
+//echo $sql;
 $resultado= mysqli_query($conexion, $sql);
 	while($fila=mysqli_fetch_array($resultado)){
 		$id=$fila['id'];
@@ -33,18 +33,18 @@ $resultado= mysqli_query($conexion, $sql);
 		$construyendo=$fila['construyendo'];
 		$tiempo_final=$fila['tiempo_final'];
 		$id_edificio=$fila['id_edificio'];
-		
-		
+
+
 		$siguiente_nivel=$nivel+1;
 		$tiempo_construccion= $siguiente_nivel*$tiempo;
 		$plata_contruccion= $siguiente_nivel*$costo;
-		
+
 	}
-?>	
-	<img src="img/<?=$imagen?>" width="200"></img>
+?>
+	<img src="img/edificios/small/<?=$imagen?>" width="200"></img>
 	<h2><?=$nombre?> (nivel <?=$nivel?>)</h2>
 	<h5><?=$descripcion?></h5>
-<?php	
+<?php
 
 $tiempo_ahora=time();
 
@@ -59,26 +59,26 @@ $diferencia_hora=$tiempo_final-$tiempo_ahora;
 		$minutos=$diferencia_hora/60;
 		$minutos=floor($minutos);
 		$resultado=$diferencia_hora-$minutos*60;
-		
+
 		echo 'faltan'.$minutos.'min'.$resultado.'seg'.'<br>';
 	}else{
 		$sql="UPDATE `02_edificios_user` SET `construyendo` = '0'
-		WHERE `id` = $id AND `construyendo` = '1' ;"; 
+		WHERE `id` = $id AND `construyendo` = '1' ;";
 	}
 
 	if($construyendo==1){
-		
-		
+
+
 		echo 'estoy construyendo';
-		
+
 	}else{
-		
+
 ?>
 
-	
+
 	<h3>Nivel <?=$siguiente_nivel?> requiere: </h3>
-	<h4><i class="fa fa-clock-o"></i>  Tiempo: <?=$tiempo_construccion?> minutos</h4> 
+	<h4><i class="fa fa-clock-o"></i>  Tiempo: <?=$tiempo_construccion?> minutos</h4>
 	<h4><i class="fa fa-money"></i> <i class="fa fa-dollar"> <?=$plata_contruccion?> </i></h4>
-	<a href="#" class="btn btn-success btn_construir" id_edi= "<?=$id?>" ><i class="fa fa-wrench"></i>construir</a> 
+	<a href="#" class="btn btn-success btn_construir" id_edi= "<?=$id?>" ><i class="fa fa-wrench"></i>construir</a>
 
 	<?php } ?>

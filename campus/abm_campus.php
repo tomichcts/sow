@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_name('Sow2016');
 session_start();
 ?>
 <?php
@@ -13,7 +14,7 @@ $dinero=0;
 
 
 // obtengo mi plata
-$sql= "SELECT  rec_dinero FROM `00_escuelas` WHERE id=$id_escuela; ";
+$sql= "SELECT `rec_dinero` FROM `00_escuelas` WHERE `id`='$id_escuela'; ";
 $resultado= mysqli_query($conexion, $sql);
 while($fila=mysqli_fetch_array($resultado)){
 		$midinero=$fila['rec_dinero'];
@@ -27,10 +28,10 @@ $sql="SELECT
 	`02_edificios_user`.`id`
 FROM
     `cts_schoolwars`.`02_edificios_user`
-    INNER JOIN `cts_schoolwars`.`02_edificios` 
+    INNER JOIN `cts_schoolwars`.`02_edificios`
         ON (`02_edificios_user`.`id_edificio` = `02_edificios`.`id`)
 WHERE `02_edificios`.`id`=$id ;";
-		
+
 $resultado= mysqli_query($conexion, $sql);
 //echo $sql;
 while($fila=mysqli_fetch_array($resultado)){
@@ -51,7 +52,7 @@ $midinero=$midinero-($dinero*$minivel);
 	if($midinero>0){
 		$sql="UPDATE `02_edificios_user` SET `nivel` = '$minivel',`tiempo_click` = '$tiempo_ahora',  `construyendo`='1',`tiempo_final` = '$tiempo_final' WHERE `id` = '$id_user';  ";
 		$resultado= mysqli_query($conexion, $sql);
-		//echo $sql;
+		echo $sql;
 		echo "edificio en construccion";
 	}else{
 		echo "no alcanza el dinero";
